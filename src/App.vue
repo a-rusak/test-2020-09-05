@@ -1,28 +1,36 @@
 <template>
-  <div>
-    <form @submit.prevent="apply" @keyup.esc="reset">
-      <input type="text" v-model="expression" autofocus />
-      <input type="submit" v-show="false" />
-      <br />
-      <span>{{ lastResult }}</span>
-      <br />
-      <button
-        :name="name"
-        :value="value"
-        :key="name"
-        v-for="{ name, text, value } of buttons"
-        type="submit"
-        @click="onButtonClick({ name, value })"
-      >
-        {{ text }}
-      </button>
-    </form>
-  </div>
+  <form @submit.prevent="apply" @keyup.esc="reset">
+    <div class="display__wrapper">
+      <label for="display-input" class="display__stack">
+        {{ expressionToShow }}
+      </label>
+      <input
+        v-model="expression"
+        class="display__input"
+        id="display-input"
+        type="text"
+        autofocus
+      />
+      <!-- Catch up and ignore click event fired on form submit -->
+      <input class="display__fake-submit" type="submit" />
+    </div>
+    <br />
+    <span>{{ lastResult }}</span>
+    <br />
+    <button
+      :name="name"
+      :value="value"
+      :key="name"
+      v-for="{ name, text, value, operator } of buttons"
+      type="submit"
+      @click.prevent="onButtonClick({ name, value, operator })"
+    >
+      {{ text }}
+    </button>
+  </form>
 </template>
 
 <script>
-// import { evaluate } from "mathjs";
-
 const buttons = [
   {
     name: "reset",
@@ -31,6 +39,50 @@ const buttons = [
   {
     name: "apply",
     text: "="
+  },
+  {
+    name: "plusMinus",
+    text: "±"
+  },
+  {
+    name: "minus",
+    text: "−",
+    value: "-"
+  },
+  {
+    name: "plus",
+    text: "+",
+    value: "+"
+  },
+  {
+    name: "multiplication",
+    text: "×",
+    value: "*"
+  },
+  {
+    name: "division",
+    text: "÷",
+    value: "/"
+  },
+  {
+    name: "zero",
+    text: "0",
+    value: "0"
+  },
+  {
+    name: "one",
+    text: "1",
+    value: "1"
+  },
+  {
+    name: "two",
+    text: "2",
+    value: "2"
+  },
+  {
+    name: "delimiter",
+    text: ",",
+    value: "."
   }
 ];
 
@@ -63,21 +115,43 @@ export default {
   computed: {
     buttons() {
       return buttons;
+    },
+    expressionToShow() {
+      const replaceMathSign = mathSign => {
+        switch (true) {
+          case mathSign === "*":
+            return "×";
+          case mathSign === "/":
+            return "÷";
+          case mathSign === "-":
+            return "−";
+          case mathSign === "Infinity":
+            return "∞";
+        }
+      };
+      return this.expression
+        .replace(".", ",")
+        .replace(/(\*{2})/g, "^")
+        .replace(/\*{1}|\/|-|Infinity/g, replaceMathSign);
     }
   },
 
   methods: {
     onButtonClick({ name, value }) {
-      if (value === undefined) {
+      if (value) {
+        this.expression += value.toString();
+      } else {
+        if (typeof this[name] !== "function") {
+          throw ReferenceError(`Button handler called "${name}" doesn't exist`);
+        }
         this[name]();
       }
     },
     apply() {
-      console.log("apply");
-      this.expression = this.expression === "" ? "" : this.lastResult;
+      this.expression =
+        this.expression === "" ? "" : this.lastResult.toString();
     },
     reset() {
-      console.log("reset");
       this.expression = "";
       this.lastResult = 0;
     }
@@ -86,11 +160,53 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  font-family: "Myriad Pro", sans-serif;
+html {
+  box-sizing: border-box;
 }
 
-input {
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Fira code", sans-serif;
+  font-size: 2em;
+  font-weight: bolder;
+  padding: 1em;
+}
+
+input,
+button,
+select {
   font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.display {
+  &__wrapper {
+    display: flex;
+  }
+  &__stack {
+    width: 50%;
+    padding: 0.25em;
+    text-align: right;
+    background: lightcoral;
+  }
+  &__input {
+    width: 50%;
+    // width: 1px;
+    padding: 0.25em;
+    margin: 0;
+    // outline: none;
+    background: #ccc;
+    border: none;
+    text-align: right;
+  }
+  &__fake-submit {
+    display: none;
+  }
 }
 </style>
