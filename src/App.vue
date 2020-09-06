@@ -42,20 +42,20 @@ export default {
   data() {
     return {
       expression: "",
-      lastResult: 0
+      result: 0
     };
   },
 
   watch: {
     expression(expressionString) {
-      let lastResult;
+      let result;
       if (expressionString === "") {
-        lastResult = 0;
-        this.lastResult = lastResult;
+        result = 0;
+        this.result = result;
       }
       try {
-        lastResult = eval(expressionString);
-        this.lastResult = Number(lastResult.toFixed(15));
+        result = eval(expressionString);
+        this.result = Number(result.toFixed(15));
       } catch (e) {
         console.log(e.message);
       }
@@ -85,7 +85,7 @@ export default {
         .replace(/\*{1}|\/|-|Infinity/g, replaceMathSign);
     },
     resultToShow() {
-      return this.toLocaleString(this.lastResult);
+      return this.toLocaleString(this.result);
     }
   },
 
@@ -101,12 +101,11 @@ export default {
       }
     },
     apply() {
-      this.expression =
-        this.expression === "" ? "" : this.lastResult.toString();
+      this.expression = this.expression === "" ? "" : this.result.toString();
     },
     reset() {
       this.expression = "";
-      this.lastResult = 0;
+      this.result = 0;
     },
     percent() {
       const [value, percentValue] = this.expression
