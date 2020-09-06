@@ -80,7 +80,7 @@ export default {
         }
       };
       return this.expression
-        .replace(".", ",")
+        .replace(".", this.decimalSeparator)
         .replace(/(\*{2})/g, "^")
         .replace(/\*{1}|\/|-|Infinity/g, replaceMathSign);
     },
@@ -107,6 +107,17 @@ export default {
     reset() {
       this.expression = "";
       this.lastResult = 0;
+    },
+    percent() {
+      const [value, percentValue] = this.expression
+        .match(/\d+(?:\.\d+)?/g) // all numbers
+        .slice(-2);
+      const calculatedPercent = (Number(value) * Number(percentValue)) / 100;
+
+      this.expression = this.expression.replace(
+        /(\d+(?:\.\d+)?)(?!.*\d)/, // last number
+        calculatedPercent.toString()
+      );
     }
   }
 };
