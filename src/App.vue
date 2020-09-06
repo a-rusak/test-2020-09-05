@@ -1,6 +1,6 @@
 <template>
-  <form @submit.prevent="apply" @keyup.esc="reset">
-    <div class="display__wrapper">
+  <form @submit.prevent="apply" @keyup.esc="reset" class="calc__wrapper">
+    <div class="display__wrapper calc__buffer">
       <label for="display-input" class="display__stack">
         {{ expressionToShow }}
       </label>
@@ -14,9 +14,7 @@
       <!-- Catch up and ignore click event fired on form submit -->
       <input class="display__fake-submit" type="submit" />
     </div>
-    <br />
-    <span>{{ resultToShow }}</span>
-    <br />
+    <span class="calc__result">{{ resultToShow }}</span>
     <button
       :name="name"
       :value="value"
@@ -32,12 +30,12 @@
 
 <script>
 import buttons from "./config/buttons";
-import FormatNumber from "./mixins/FormatNumber";
+import LocaleFormat from "./mixins/LocaleFormat";
 
 export default {
   name: "Calc",
 
-  mixins: [FormatNumber],
+  mixins: [LocaleFormat],
 
   data() {
     return {
@@ -55,7 +53,7 @@ export default {
       }
       try {
         result = eval(expressionString);
-        this.result = Number(result.toFixed(15));
+        this.result = Number(result.toFixed(this.maximumFractionDigits));
       } catch (e) {
         console.log(e.message);
       }
