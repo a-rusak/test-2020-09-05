@@ -80,7 +80,7 @@ export default {
         }
       };
       return this.expression
-        .replace(".", this.decimalSeparator)
+        .replace(".", this.localeDecimalSeparator)
         .replace(/(\*{2})/g, "^")
         .replace(/\*{1}|\/|-|Infinity/g, replaceMathSign);
     },

@@ -1,12 +1,9 @@
-import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mount } from "@vue/test-utils";
+import Calculator from "@/App";
 
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    });
-    expect(wrapper.text()).toMatch(msg);
+describe("Calculator", () => {
+  it("rendered", () => {
+    const wrapper = mount(Calculator);
+    expect(wrapper.find("form").exists()).toBe(true);
   });
 });

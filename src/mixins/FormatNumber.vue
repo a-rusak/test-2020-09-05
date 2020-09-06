@@ -1,7 +1,7 @@
 <script>
 export default {
   computed: {
-    decimalSeparator() {
+    localeDecimalSeparator() {
       return (0.5).toLocaleString().match(/\D/)[0] || ",";
     }
   },
