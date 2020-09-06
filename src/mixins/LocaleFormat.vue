@@ -13,14 +13,13 @@ export default {
   methods: {
     toLocaleString(
       number,
-      options = {
+      params = {
         locale: "ru-RU",
         maximumFractionDigits: MAXIMUM_FRACTION_DIGITS
       }
     ) {
-      const { locale, ...settings } = options;
-      console.log(locale, settings);
-      return number.toLocaleString(locale, settings);
+      const { locale, ...options } = params;
+      return number.toLocaleString(locale, options);
     }
   }
 };
