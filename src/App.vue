@@ -118,6 +118,12 @@ export default {
         /(\d+(?:\.\d+)?)(?!.*\d)/, // last number
         calculatedPercent.toString()
       );
+    },
+    plusMinus() {
+      this.expression = this.expression.replace(
+        /(\d+(?:\.\d+)?)(?!.*\d)/, // last number
+        match => `(-${match})`
+      );
     }
   }
 };
