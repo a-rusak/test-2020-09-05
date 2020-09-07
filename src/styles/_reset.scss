@@ -1,0 +1,27 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  font: {
+    family: sans-serif;
+  }
+  padding: 1em;
+}
+
+input,
+button,
+select {
+  font: {
+    family: inherit;
+    size: inherit;
+    weight: inherit;
+  }
+  color: inherit;
+}
