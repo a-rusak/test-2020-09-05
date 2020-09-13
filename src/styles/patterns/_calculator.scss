@@ -1,5 +1,5 @@
 .calculator {
-  $calculator-width: 230px;
+  $calculator-width: calc(var(--theme-font-size-calculator) * 3.65);
   $base-size: var(--theme-font-size-calculator);
   $three-eighths-size: calc(var(--theme-font-size-calculator) * 3 / 8);
   $half-size: calc(var(--theme-font-size-calculator) / 2);
