@@ -33,5 +33,6 @@ export default {
   --theme-color-border-footer: var(--pl-color-white-093);
   --theme-color-text-footer: var(--pl-color-grey-052);
   --theme-font-size-footer: calc(var(--pl-size-base) * 0.75);
+  --theme-font-size-calculator: calc(var(--pl-size-base) * 2);
 }
 </style>

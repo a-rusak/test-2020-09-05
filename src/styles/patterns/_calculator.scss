@@ -1,11 +1,19 @@
 .calculator {
+  $calculator-width: 230px;
+  $base-size: var(--theme-font-size-calculator);
+  $three-eighths-size: calc(var(--theme-font-size-calculator) * 3 / 8);
+  $half-size: calc(var(--theme-font-size-calculator) / 2);
+  $one-quarter-size: calc(var(--theme-font-size-calculator) / 4);
+  $one-eighth-size: calc(var(--theme-font-size-calculator) / 8);
+  $button-vertical-padding:  calc(var(--theme-font-size-calculator) * 0.225);
+
   @mixin calc-display {
     white-space: nowrap;
     overflow: hidden;
     direction: rtl; // cut-off left side of number
   }
 
-  width: 230px;
+  width: $calculator-width;
   overflow: hidden;
   position: relative;
 
@@ -16,7 +24,7 @@
   box-shadow: var(--theme-box-shadow);
 
   font: {
-    size: 2em;
+    size: $base-size;
     weight: bolder;
   }
 
@@ -35,19 +43,20 @@
   }
 
   &__buffer {
-    padding: 1em 1em 0;
-    font-size: 0.5em;
+    padding: $half-size $half-size 0;
+    font-size: $one-quarter-size;
     @include calc-display;
   }
   &__result {
-    padding: 0.25em 0.5em;
+    padding: $one-eighth-size $one-quarter-size;
     @include calc-display;
   }
 
   &__button {
     border: none;
-    padding: 9px 0;
-    font-size: 0.75em;
+    padding: $button-vertical-padding 0;
+    line-height: 1;
+    font-size: $three-eighths-size;
     background-color: var(--theme-color-bg-button-regular);
     color: var(--theme-color-text-button-regular);
 
