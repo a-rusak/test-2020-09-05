@@ -1,17 +1,12 @@
 <template>
-  <form
-    @submit.prevent="apply"
-    @keyup.esc="reset"
-    class="calculator"
-    :class="$style.wrapper"
-  >
+  <form @submit.prevent="apply" class="calculator" :class="$style.wrapper">
     <input v-model="expression" type="hidden" />
     <span class="calculator__buffer" :class="$style.buffer">
       <bdi v-html="expressionToShow" />
     </span>
-    <span class="calculator__result" :class="$style.result">
+    <output class="calculator__result" :class="$style.result">
       <bdi v-html="resultToShow" />
-    </span>
+    </output>
     <button
       :name="name"
       :value="value"
@@ -42,6 +37,14 @@ export default {
       expression: "",
       result: 0
     };
+  },
+
+  mounted() {
+    document.addEventListener("keydown", this.onDocumentKeyUp);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.onDocumentKeyUp);
   },
 
   watch: {
@@ -102,6 +105,29 @@ export default {
   },
 
   methods: {
+    onDocumentKeyUp({ key }) {
+      switch (true) {
+        case /F\d/.test(key):
+          break;
+        case /(\d|%|\/|\*|-|\+)/.test(key):
+          this.expression += key;
+          break;
+        case /Backspace/.test(key):
+          this.expression = this.expression.slice(
+            0,
+            this.expression.length - 1
+          );
+          break;
+        case /Enter|=/.test(key):
+          this.apply();
+          break;
+        case /Escape/.test(key):
+          this.reset();
+          break;
+        default:
+          break;
+      }
+    },
     onButtonClick({ name, value }) {
       if (value) {
         this.expression += value.toString();
