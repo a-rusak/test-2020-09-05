@@ -1,7 +1,12 @@
 <template>
-  <form @submit.prevent="apply" class="calculator" :class="$style.wrapper">
+  <form
+    name="calculator"
+    class="calculator"
+    :class="$style.wrapper"
+    @submit.prevent="apply"
+  >
     <input v-model="expression" type="hidden" />
-    <span class="calculator__buffer" :class="$style.buffer">
+    <span data-cy="buffer" class="calculator__buffer" :class="$style.buffer">
       <bdi v-html="expressionToShow" />
     </span>
     <output class="calculator__result" :class="$style.result">
@@ -58,7 +63,8 @@ export default {
         result = eval(expressionString);
         this.result = Number(result.toFixed(this.maximumFractionDigits));
       } catch (e) {
-        console.log(e.message);
+        // eslint-disable-next-line
+        console.info(e.message);
       }
     }
   },
