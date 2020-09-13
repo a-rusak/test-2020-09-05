@@ -1,8 +1,8 @@
 <template>
   <form
     name="calculator"
-    class="calculator"
     :class="$style.wrapper"
+    class="calculator"
     @submit.prevent="apply"
   >
     <input v-model="expression" type="hidden" />
@@ -13,14 +13,14 @@
       <bdi v-html="resultToShow" />
     </output>
     <button
+      v-for="{ name, text, value, operator, area, style } of buttons"
+      :key="name"
       :name="name"
       :value="value"
-      :key="name"
-      v-for="{ name, text, value, operator, area, style } of buttons"
-      type="submit"
-      :style="buttonStyle(area)"
-      class="calculator__button"
       :class="{ [buttonClass(style)]: style }"
+      :style="buttonStyle(area)"
+      type="submit"
+      class="calculator__button"
       @click.prevent="onButtonClick({ name, value, operator })"
     >
       {{ text }}
