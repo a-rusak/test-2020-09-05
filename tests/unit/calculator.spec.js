@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from "@vue/test-utils";
-import Calculator from "@/App";
+import Calculator from "@/components/Calculator";
 
 let wrapper;
 const localVue = createLocalVue();
