@@ -2,46 +2,54 @@ export default [
   {
     name: "reset",
     text: "C",
-    area: "rst"
+    area: "rst",
+    style: "dark"
   },
   {
     name: "apply",
     text: "=",
-    area: "eql"
+    area: "eql",
+    style: "accent"
   },
   {
     name: "plusMinus",
     text: "±",
-    area: "plm"
+    area: "plm",
+    style: "dark"
   },
   {
     name: "percent",
     text: "%",
-    area: "prc"
+    area: "prc",
+    style: "dark"
   },
   {
     name: "minus",
     text: "−",
     value: "-",
-    area: "mns"
+    area: "mns",
+    style: "accent"
   },
   {
     name: "plus",
     text: "+",
     value: "+",
-    area: "pls"
+    area: "pls",
+    style: "accent"
   },
   {
     name: "multiplication",
     text: "×",
     value: "*",
-    area: "mul"
+    area: "mul",
+    style: "accent"
   },
   {
     name: "division",
     text: "÷",
     value: "/",
-    area: "div"
+    area: "div",
+    style: "accent"
   },
   {
     name: "zero",

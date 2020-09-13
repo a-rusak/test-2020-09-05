@@ -1,0 +1,15 @@
+.app {
+  &__header {
+    padding: var(--theme-size-padding);
+    background-color: var(--theme-color-bg-header);
+  }
+  &__main {
+    padding: var(--theme-size-padding);
+  }
+  &__footer {
+    border-top: 1px solid var(--theme-color-border-footer);
+    padding: var(--theme-size-padding);
+    font-size: var(--theme-font-size-footer);
+    color: var(--theme-color-text-footer);
+  }
+}

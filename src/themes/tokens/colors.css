@@ -1,0 +1,12 @@
+:root {
+  --pl-color-white-100:    hsl(0, 0%, 100%);
+  --pl-color-white-093:    hsl(0, 0%, 93%);
+
+  --pl-color-black-000:    hsl(0, 0%, 0%);
+  --pl-color-black-035:    hsl(0, 0%, 35%);
+  --pl-color-black-041:    hsl(0, 0%, 41%);
+
+  --pl-color-grey-052:     hsl(0, 0%, 52%);
+
+  --pl-color-amber-060:    hsl(34, 89%, 60%);
+}

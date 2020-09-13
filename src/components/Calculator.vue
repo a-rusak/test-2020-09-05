@@ -2,28 +2,25 @@
   <form
     @submit.prevent="apply"
     @keyup.esc="reset"
-    class="calculator calculator--theme-default"
+    class="calculator"
     :class="$style.wrapper"
   >
     <input v-model="expression" type="hidden" />
-    <span
-      class="calculator__stack"
-      :class="$style.buffer"
-      v-html="expressionToShow"
-    />
-    <span
-      class="calculator__result"
-      :class="$style.result"
-      v-html="resultToShow"
-    />
+    <span class="calculator__buffer" :class="$style.buffer">
+      <bdi v-html="expressionToShow" />
+    </span>
+    <span class="calculator__result" :class="$style.result">
+      <bdi v-html="resultToShow" />
+    </span>
     <button
       :name="name"
       :value="value"
       :key="name"
-      v-for="{ name, text, value, operator, area } of buttons"
+      v-for="{ name, text, value, operator, area, style } of buttons"
       type="submit"
       :style="buttonStyle(area)"
       class="calculator__button"
+      :class="{ [buttonClass(style)]: style }"
       @click.prevent="onButtonClick({ name, value, operator })"
     >
       {{ text }}
@@ -83,10 +80,11 @@ export default {
         }
       };
       return (
+        "&nbsp;" +
         this.expression
           .replace(".", this.localeDecimalSeparator)
           .replace(/(\*{2})/g, "^")
-          .replace(/\*{1}|\/|-|\+|Infinity/g, replaceMathSign) + "&nbsp;"
+          .replace(/\*{1}|\/|-|\+|Infinity/g, replaceMathSign)
       );
       // .replace(/\d+(?:\.\d+)?/g, number =>
       //   this.toLocaleString(Number(number))
@@ -97,6 +95,9 @@ export default {
     },
     buttonStyle() {
       return area => ({ gridArea: area });
+    },
+    buttonClass() {
+      return modificator => `calculator__button--${modificator}`;
     }
   },
 
@@ -140,12 +141,6 @@ export default {
 </script>
 
 <style lang="scss" module>
-@mixin calc-display {
-  text-align: right;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .wrapper {
   display: grid;
   grid-template-areas:
@@ -161,11 +156,9 @@ export default {
   gap: 1px;
 }
 .buffer {
-  @include calc-display;
   grid-area: bfr;
 }
 .result {
-  @include calc-display;
   grid-area: res;
 }
 </style>

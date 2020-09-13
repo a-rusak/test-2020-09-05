@@ -1,0 +1,61 @@
+.calculator {
+  @mixin calc-display {
+    white-space: nowrap;
+    overflow: hidden;
+    direction: rtl; // cut-off left side of number
+  }
+
+  width: 230px;
+  overflow: hidden;
+  position: relative;
+
+  background-color: var(--theme-color-bg);
+  border: 1px solid var(--theme-color-border);
+  color: var(--theme-color-text);
+  border-radius: var(--theme-radius-border);
+  box-shadow: var(--theme-box-shadow);
+
+  font: {
+    size: 2em;
+    weight: bolder;
+  }
+
+  // border inside
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: var(--theme-opacity-border-inside);
+    left: 0;
+    top: 0;
+    border: 1px solid var(--theme-color-border-inside);
+    border-radius: var(--theme-radius-border);
+    pointer-events: none;
+  }
+
+  &__buffer {
+    padding: 1em 1em 0;
+    font-size: 0.5em;
+    @include calc-display;
+  }
+  &__result {
+    padding: 0.25em 0.5em;
+    @include calc-display;
+  }
+
+  &__button {
+    border: none;
+    padding: 9px 0;
+    font-size: 0.75em;
+    background-color: var(--theme-color-bg-button-regular);
+    color: var(--theme-color-text-button-regular);
+
+    &--dark {
+      background-color: var(--theme-color-bg-button-dark);
+    }
+    &--accent {
+      background-color: var(--theme-color-bg-button-accent);
+    }
+  }
+}
