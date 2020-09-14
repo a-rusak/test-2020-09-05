@@ -9,4 +9,8 @@
   --pl-color-grey-052:     hsl(0, 0%, 52%);
 
   --pl-color-amber-060:    hsl(34, 89%, 60%);
+
+  --pl-color-white-opacity-030:    hsla(0, 0%, 100%, 30%);
+  --pl-color-white-opacity-050:    hsla(0, 0%, 100%, 50%);
+
 }
