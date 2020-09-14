@@ -153,6 +153,8 @@ export default {
       this.result = 0;
     },
     percent() {
+      if (this.expression.length < 2) return;
+
       const [value, percentValue] = this.expression
         .match(/\d+(?:\.\d+)?/g) // all numbers
         .slice(-2);
