@@ -22,6 +22,7 @@
       type="submit"
       class="calculator__button"
       @click.prevent="onButtonClick({ name, value, operator })"
+      @keypress.enter.prevent
     >
       {{ text }}
     </button>
